@@ -4,10 +4,13 @@ import sys
 
 class CPU:
     """Main CPU class."""
+    def __init__(self):
+        """Construct a new CPU."""
     #  Add list properties to the `CPU` class to hold 256 bytes of memory
     # and 8 general-purpose registers.
     self.memory = [0] * 256  # memory is a list of 256 zeroes
     self.register = [0] * 8
+    self.pc = 0
 
      # In `CPU`, add method `ram_read()` and `ram_write()`
     # that access the RAM inside the `CPU` object.
@@ -77,4 +80,11 @@ class CPU:
 
     def run(self):
         """Run the CPU."""
-        pass
+        # It needs to read the memory address that's stored in register `PC`,
+        # and store that result in `IR`, the _Instruction Register_.
+        # This can just be a local variable in `run()`.
+        IR = self.memory[self.pc]
+        # Using `ram_read()`, read the bytes at `PC+1` and `PC+2` from RAM into variables
+        # `operand_a` and `operand_b` in case the instruction needs them.
+        operand_a = ram_read(IR + 1)
+        operand_b = ram_read(IR + 2)
